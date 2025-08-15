@@ -12,7 +12,7 @@ import { UsuarioLogin } from './../entities/usuariologin.entity';
 import { LocalAuthGuard } from '../guard/local-auth-guard';
 
 @ApiTags('Usuario')
-@Controller('/usuarios')
+@Controller('/usuario')
 export class AuthController {
   constructor(private authService: AuthService) {}
 

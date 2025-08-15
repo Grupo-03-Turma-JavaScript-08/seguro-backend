@@ -32,12 +32,8 @@ export class CategoriaService {
 
   async findById(id: number): Promise<Categoria> {
     const categoria = await this.categoriaRepository.findOne({
-      where: {
-        id,
-      },
-      relations: {
-        seguro: true,
-      },
+      where: { id },
+      relations: { seguro: true },
     });
 
     if (!categoria) {
@@ -46,14 +42,11 @@ export class CategoriaService {
 
     return categoria;
   }
+
   async findAllByNome(nome: string): Promise<Categoria[]> {
     return await this.categoriaRepository.find({
-      where: {
-        nome: ILike(`%${nome}%`),
-      },
-      relations: {
-        seguro: true,
-      },
+      where: { nome: ILike(`%${nome}%`) },
+      relations: { seguro: true },
     });
   }
 
@@ -69,11 +62,12 @@ export class CategoriaService {
   async delete(id: number): Promise<DeleteResult> {
     const buscaCategoria = await this.findById(id);
 
-    if (!buscaCategoria)
+    if (!buscaCategoria) {
       throw new HttpException(
         'Categoria não encontrada!',
         HttpStatus.NOT_FOUND,
       );
+    }
 
     return await this.categoriaRepository.delete(id);
   }

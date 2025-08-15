@@ -16,7 +16,6 @@ import { UsuarioService } from '../services/usuario.service';
 import { Usuario } from '../entities/usuario.entity';
 import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
 
-
 @ApiTags('Usuario')
 @ApiBearerAuth()
 @Controller('/usuarios')
@@ -58,7 +57,7 @@ export class UsuarioController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Delete('/deletar/:id')
+  @Delete('/:id')
   @HttpCode(HttpStatus.NO_CONTENT)
   delete(@Param('id', ParseIntPipe) id: number): Promise<void> {
     return this.usuarioService.delete(id);

@@ -17,10 +17,10 @@ import { Seguro } from '../entities/seguro.entity';
 export class SeguroController {
   constructor(private readonly seguroService: SeguroService) {}
 
-  @Get()
+  @Get('/nome/:nome') // Mover rota antes de '/:id'
   @HttpCode(HttpStatus.OK)
-  findAll(): Promise<Seguro[]> {
-    return this.seguroService.findAll();
+  findAllByNome(@Param('nome') nome: string): Promise<Seguro[]> {
+    return this.seguroService.findAllByNome(nome);
   }
 
   @Get('/:id')
@@ -29,10 +29,10 @@ export class SeguroController {
     return this.seguroService.findById(id);
   }
 
-  @Get('/nome/:nome')
+  @Get()
   @HttpCode(HttpStatus.OK)
-  findAllByNome(@Param('nome') nome: string): Promise<Seguro[]> {
-    return this.seguroService.findAllByNome(nome);
+  findAll(): Promise<Seguro[]> {
+    return this.seguroService.findAll();
   }
 
   @Post()

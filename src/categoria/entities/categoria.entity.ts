@@ -1,15 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
-import {
-  Entity,
-  JoinColumn,
-  PrimaryGeneratedColumn,
-  Column,
-  OneToMany,
-} from 'typeorm';
-
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Seguro } from '../../seguro/entities/seguro.entity';
-
 
 @Entity('tb_categorias')
 export class Categoria {
@@ -31,6 +23,5 @@ export class Categoria {
   @OneToMany(() => Seguro, (seguro) => seguro.categoria, {
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'seguro_id' })
   seguro: Seguro[];
 }

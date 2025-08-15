@@ -12,41 +12,38 @@ export class AuthService {
     private bcrypt: Bcrypt,
   ) {}
 
-  async validateUser(username: string, password: string): Promise<any> {
-    const buscaUsuario = await this.usuarioService.findByUsuario(username);
+  async validateUser(email: string, password: string): Promise<any> {
+    const usuario = await this.usuarioService.findByEmail(email);
 
-    if (!buscaUsuario)
+    if (!usuario)
       throw new HttpException('Usuário não encontrado!', HttpStatus.NOT_FOUND);
 
-    const matchPassword = await this.bcrypt.compararSenhas(
+    const senhaValida = await this.bcrypt.compararSenhas(
       password,
-      buscaUsuario.senha,
+      usuario.senha,
     );
 
-    if (buscaUsuario && matchPassword) {
-      const { senha, ...resposta } = buscaUsuario;
-      return resposta;
+    if (senhaValida) {
+      const { senha, ...result } = usuario;
+      return result;
     }
 
     return null;
   }
 
   async login(usuarioLogin: UsuarioLogin) {
-    const payload = { sub: usuarioLogin.usuario };
+    const usuario = await this.usuarioService.findByEmail(usuarioLogin.email);
 
-    const buscaUsuario = await this.usuarioService.findByNome(
-      usuarioLogin.usuario,
-    );
-
-    if (!buscaUsuario) {
+    if (!usuario) {
       throw new HttpException('Usuário não encontrado!', HttpStatus.NOT_FOUND);
     }
 
+    const payload = { sub: usuario.id, email: usuario.email };
+
     return {
-      id: buscaUsuario.id,
-      nome: buscaUsuario.nome,
-      usuario: usuarioLogin.usuario,
-      senha: '',
+      id: usuario.id,
+      nome: usuario.nome,
+      email: usuario.email,
       token: `Bearer ${this.jwtService.sign(payload)}`,
     };
   }

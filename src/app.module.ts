@@ -1,11 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Categoria } from './categoria/entities/categoria.entity';
 import { CategoriaModule } from './categoria/categoria.module';
-import { UsuarioModule } from './usuario/usuario.module';
 import { SeguroModule } from './seguro/seguro.module';
-import { Seguro } from './seguro/entities/seguro.entity';
-import { Usuario } from './usuario/entities/usuario.entity';
+import { UsuarioModule } from './usuario/usuario.module';
 
 @Module({
   imports: [
@@ -14,9 +11,9 @@ import { Usuario } from './usuario/entities/usuario.entity';
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: 'halle1021',
-      database: 'db_seguro',
-      entities: [Categoria, Seguro, Usuario],
+      password: 'root',
+      database: 'db_seguro_viagem',
+      autoLoadEntities: true, // carrega automaticamente todas as entidades
       synchronize: true,
       logging: true,
     }),

@@ -1,11 +1,4 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  OneToMany,
-  CreateDateColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import {
   IsEmail,
   IsEnum,
@@ -42,6 +35,6 @@ export class Usuario {
   @Column({ type: 'enum', enum: UsuarioTipo, default: UsuarioTipo.CLIENTE })
   tipo: UsuarioTipo;
 
-  @OneToMany(() => Seguro, (seguro) => seguro.categoria, { cascade: false })
+  @OneToMany(() => Seguro, (seguro) => seguro.usuario, { cascade: false })
   seguros: Seguro[];
 }
