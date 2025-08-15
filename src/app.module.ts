@@ -12,7 +12,7 @@ import { UsuarioModule } from './usuario/usuario.module';
       port: 3306,
       username: 'root',
       password: 'root',
-      database: 'db_seguro_viagem',
+      database: 'db_seguro_viagem', 
       autoLoadEntities: true, // carrega automaticamente todas as entidades
       synchronize: true,
       logging: true,
