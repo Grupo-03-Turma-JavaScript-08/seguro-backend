@@ -27,15 +27,17 @@ O projeto conta com autenticação JWT, documentação via Swagger e endpoints p
 
 ---
 
-## 📂 Estrutura do Projeto
+## 📁 Estrutura do Projeto
 
+```plaintext
 src/
-├── auth/ # Módulo de autenticação
-├── categoria/ # CRUD de categorias
-├── seguro/ # CRUD de seguros
-├── usuario/ # CRUD de usuários
+├── auth/           
+├── categoria/      
+├── seguro/        
+├── usuario/       
 ├── app.module.ts
 └── main.ts
+```
 
 ## 📜 Endpoints Principais
 
