@@ -1,98 +1,94 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 🛡️ Rota Segura – API de Seguros de Viagem
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+O **Rota Segura** é uma API desenvolvida para o gerenciamento de **seguros de viagem**, permitindo o cadastro, atualização e consulta de seguros, categorias e usuários.  
+O projeto conta com autenticação JWT, documentação via Swagger e endpoints prontos para testes.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+## 🚀 Funcionalidades
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **Cadastro e autenticação de usuários** (Cliente e Administrador)
+- **Cadastro, listagem, atualização e exclusão** de seguros de viagem
+- **Gerenciamento de categorias** de seguros
+- **Relacionamento** entre seguros e categorias
+- **Documentação interativa** via Swagger
+- **Validações** para segurança e integridade dos dados
 
-## Project setup
+---
 
-```bash
-$ npm install
-```
+## 🛠️ Tecnologias Utilizadas
 
-## Compile and run the project
+- **Node.js** com **NestJS**
+- **TypeORM** com **MySQL**
+- **Swagger** para documentação
+- **JWT** para autenticação
+- **Class Validator** para validações
+- **Insomnia** (para testes manuais da API)
 
-```bash
-# development
-$ npm run start
+---
 
-# watch mode
-$ npm run start:dev
+## Estrutura do Projeto
 
-# production mode
-$ npm run start:prod
-```
+┣ 📂 src
+┃ ┣ 📂 auth
+┃ ┣ 📂 categoria
+┃ ┣ 📂 seguros
+┃ ┣ 📂 usuario
+┃ ┣ app.module.ts
+┃ ┗ main.ts
+┣ 📄 package.json
+┗ 📄 README.md
 
-## Run tests
+## 📜 Endpoints Principais
 
-```bash
-# unit tests
-$ npm run test
+A documentação completa está disponível no Swagger, mas aqui vão alguns exemplos:
 
-# e2e tests
-$ npm run test:e2e
+| Método | Rota                       | Descrição                                  | Autenticação 
+|--------|----------------------------|--------------------------------------------|--------------
+| POST   | `/usuarios`                | Cadastra um novo usuário                   | ❌           
+| POST   | `/usuario/logar`           | Realiza login e gera token JWT             | ❌         
+| GET    | `/seguros`                 | Lista todos os seguros                     | ✅           
+| POST   | `/seguros`                 | Cria um novo seguro de viagem              | ✅ Admin     
+| GET    | `/categoria`               | Lista todas as categorias                  | ✅           
+| POST   | `/categoria`               | Cadastra uma nova categoria                | ✅ Admin     
 
-# test coverage
-$ npm run test:cov
-```
+---
 
-## Deployment
+## 🧪 Como Testar a API no Swagger
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+1. Rodar o projeto localmente:
+   ```bash
+   npm install
+   npm run start:dev
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+2. Acessar a documentação:
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
+   http://localhost:3000/api
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+3. Autenticar-se para testar rotas protegidas:
 
-## Resources
+  - Fazer login no endpoint /usuario/logar
+  - Copiar o token JWT retornado
+  - Clicar em Authorize no Swagger e colar o token no formato:
+    Bearer seu_token_aqui
 
-Check out a few resources that may come in handy when working with NestJS:
+--- 
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+👥 Participantes do Projeto
+| Nome             | Função no Projeto |
+| ---------------- | ----------------- |
+| Dayse dos Santos | Product Owner     |
+| Miguel Junior    | Tester            |
+| Letícia Betman   | Desenvolvedora    |
+| Maeli Oliveira   | Desenvolvedora    |
+| Vitor Nazareth   | Desenvolvedor     |
+| Luis Bispo       | Desenvolvedor     |
 
-## Support
+📌 Observações
+- O projeto Rota Segura foi desenvolvido como parte de um trabalho prático para gerenciamento de seguros de viagem.
+- Toda a API segue padrões REST e boas práticas de desenvolvimento.
+- Para testes, pode-se utilizar tanto o Swagger quanto o Insomnia.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+📄 Licença
 
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Este projeto é de uso acadêmico e não possui fins comerciais.
