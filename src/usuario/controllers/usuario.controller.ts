@@ -63,3 +63,4 @@ export class UsuarioController {
     return this.usuarioService.delete(id);
   }
 }
+
