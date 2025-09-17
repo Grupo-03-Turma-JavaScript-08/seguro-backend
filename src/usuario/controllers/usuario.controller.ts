@@ -5,6 +5,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  NotFoundException,
   Param,
   ParseIntPipe,
   Post,
@@ -39,8 +40,14 @@ export class UsuarioController {
   @UseGuards(JwtAuthGuard)
   @Get('/email/:email')
   @HttpCode(HttpStatus.OK)
-  findByEmail(@Param('email') email: string): Promise<Usuario | null> {
-    return this.usuarioService.findByEmail(email);
+  async findByEmail(@Param('email') email: string): Promise<Usuario | null> {
+    const response = await this.usuarioService.findByEmail(email);
+
+    if (!response) {
+      throw new NotFoundException('Usuário não encontrado');
+    }
+
+    return response;
   }
 
   @Post()
@@ -63,4 +70,3 @@ export class UsuarioController {
     return this.usuarioService.delete(id);
   }
 }
-
