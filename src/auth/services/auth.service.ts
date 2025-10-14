@@ -38,13 +38,13 @@ export class AuthService {
       throw new HttpException('Usuário não encontrado!', HttpStatus.NOT_FOUND);
     }
 
-    const payload = { sub: usuario.id, email: usuario.email };
+    const payload = { sub: usuario.id, email: usuario.email, nome: usuario.nome };
 
     return {
       id: usuario.id,
       nome: usuario.nome,
       email: usuario.email,
-      token: `Bearer ${this.jwtService.sign(payload)}`,
+      token: this.jwtService.sign(payload),
     };
   }
 }

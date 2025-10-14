@@ -54,10 +54,17 @@ export class SeguroService {
     });
   }
 
+  async findByUsuarioId(usuarioId: number): Promise<Seguro[]> {
+  return await this.seguroRepository.find({
+    where: { usuario: { id: usuarioId } },
+    relations: { categoria: true, usuario: true },
+  });
+}
+
   async create(seguro: Seguro): Promise<Seguro> {
-    (seguro as any).precoFinal = calcularPrecoFinal(seguro);
-    return await this.seguroRepository.save(seguro);
-  }
+  seguro.preco = calcularPrecoFinal(seguro);
+  return this.seguroRepository.save(seguro);
+}
 
   async update(seguro: Seguro): Promise<Seguro> {
     await this.findById(seguro.id);
